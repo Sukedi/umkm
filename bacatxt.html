@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" 
+    content="width=device-width,
+    user-scalable=no">
+    <title>Baca File TXT</title>
+</head>
+<body>
+    <h2>Data dari File TXT</h2>
+    <pre id="output"></pre>
+    <script>
+        async function fetchData() {
+            const url = "data.txt";
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                const lines = text.split("\n").map(line => line.split(", ").map(item => item.trim()));
+                let output = "";
+                lines.forEach((row, i) => {
+                    row.forEach((col, j) => {
+                        output += `baris(${i + 1},${j + 1}) = ${col}\n`;
+                    });
+                });
+                document.getElementById("output").textContent = output;
+            } catch (error) {
+                console.error("Gagal mengambil data:", error);
+            }
+        }
+        fetchData();
+    </script>
+</body>
+</html>
