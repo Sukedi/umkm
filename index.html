@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+    content="width=device-width,
+    user-scalable=no">
+    <meta http-equiv="refresh" content="10; url=pesan.htm">
+    <title>Welcome</title>
+    <style>
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+        }
+        #countdown {
+            font-size: 20px;
+            font-weight: bold;
+            transition: transform 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <img src="me.jpg" width="315" height="410">
+    <div id="countdown"></div>
+</center>
+    <script>
+        let count = 10;
+        const countdownElement = document.getElementById("countdown");
+
+        const interval = setInterval(() => {
+            if (count >= 0) {
+                if (count > 0){
+                countdownElement.textContent = count;
+                }
+                countdownElement.style.transform = `scale(${1 + (10 - count) * 0.1})`;
+                count--;
+            } else {
+                clearInterval(interval);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
