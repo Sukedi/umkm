@@ -6,3 +6,4 @@
 6666, SBY, Bogor
 7777, JOKOWI, Solo
 8888, PRABOWO, Istana
+9999, SUKEDI, Pemalang
