@@ -1,5 +1,8 @@
-Bagyo Susanto, 20/04/1983, Boyolali
-Sukedi Suud, 10/07/1988, Pemalang
-Siti Mawarti, 02/11/1980, Semarang
-Ani Wijaya, 23/09/1992, Jakarta
-Budi Leksmono, 28/03/1985, Medan
+1111, SOEKARNO, Denpasar
+2222, SOEHARTO, Cendana
+3333, BJ HABIBIE, Parepare
+4444, GUS DUR, Surabaya
+5555, MEGAWATI, Jakarta
+6666, SBY, Bogor
+7777, JOKOWI, Solo
+8888, PRABOWO, Istana
