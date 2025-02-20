@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" 
+    content="width=device-width,
+    user-scalable=no">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Cek NPWP</title>
+<style>
+body, table, tr, th, td {
+    font-family: arial;
+    font-size: 14px;
+}
+</style>
+</head>
+<body>
+    <h3>Cek NPWP Online</h3>
+    <div id="output"></div>
+    <hr>
+    Ketik NPWP yang akan dicek:<br>
+    <input type="number" id="inpNPWP" autofocus required>
+    <button onClick="cekNPWP()">Cek</button>
+    
+    <script>
+        async function fetchData() {
+            const url = "https://sukedi.github.io/umkm/data.txt";
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                const lines = text.split("\n").map(line => line.split(", ").map(item => item.trim()));
+                let output = "Data source ini hanya utk cek visual:<table width='100%' border='1'>";
+                    output += "<tr style='font-weight:bold;'><td>NPWP</td><td>Nama</td><td>Alamat</td></tr>";
+                lines.forEach((row, i) => {
+                    output += "<tr>";
+                    row.forEach((col, j) => {
+                        if (`${col}` !== ""){
+                            output += `<td>${col}</td>`;
+                        }
+                    });
+                    output += "</tr>";
+                });
+                output += "</table>Data source harusnya tersembunyi <i>(back-end)</i>.";
+                document.getElementById("output").innerHTML = output;
+            } catch (error) {
+                console.error("Gagal mengambil data:", error);
+            }
+        }
+        fetchData();
+    </script>
+    
+<script>    
+    async function cekNPWP(){
+        let npwp = document.getElementById("inpNPWP").value;
+        const url = "https://sukedi.github.io/umkm/data.txt";
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                const lines = text.split("\n").map(line => line.split(", ").map(item => item.trim()));
+                let output = "";
+                let ketemu = 0;
+                lines.forEach((row, i) => {
+                   xrow = row;
+                   row.forEach((col, j) => {
+                       ret = `${col}`;
+                       if (ret == npwp){
+                           ketemu = 1;
+                           xrow.forEach((xx, n) => {
+                               if (n==0){ output += `${xx}: `; }
+                               if (n==1){ output += `${xx}, `; }
+                               if (n==2){ output += `${xx}.`; }
+                           });
+                       }
+                   });
+                   if (ketemu == 1){
+                       uji = "1";
+                       npx = output;
+                   } else {
+                       uji = "0";
+                       npx = npwp + ": tak ditemukan!";
+                   }
+                });
+            } catch (error) {
+                console.error("Gagal mengambil data:", error);
+            }
+        MsgBox(uji,npx);
+    }
+    fetchData();
+
+    function MsgBox(hsl,nmr){
+        if (hsl == "1"){
+          Swal.fire({
+            title: "NPWP Valid!",
+            text: nmr,
+            icon: "success"
+          });
+        } else {
+          Swal.fire({
+            title: "NPWP Tak Valid!",
+            text: nmr,
+            icon: "error"
+          });
+        }
+        document.getElementById("inpNPWP").value="";
+    }
+</script>    
+    
+</body>
+</html>
