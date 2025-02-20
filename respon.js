@@ -87,7 +87,7 @@ function GetResponse(txt){
         rspn2 = "Kami adalah UMKM modal mandiri yang bergerak di bidang usaha produk dan jasa. "+
         "Produk kami berupa minuman herbal, kuliner dan bakery. Sedangkan jasa kami berupa developing program dan edukasi komputer. Kami sudah memulai usaha sejak tahun 2021."; }
     if (ada(["berdiri","didiri"],txt)){ rspn2 = "Usaha kami berdiri sejak tahun 2021."; }
-    if (ada(["alamat","kantor","lokasi"],txt)){ rspn2 = alamat; }
+    if (ada(["alamat","kantor","lokasi","tempat"],txt)){ rspn2 = alamat; }
     if (ada(["cabang"],txt)){ rspn2 = "Kami tidak buka cabang. "; }
     return rspn1 + "\n" + rspn2;
 }
