@@ -32,12 +32,14 @@ body, table, tr, th, td {
       </tr>
     </table>
     <br><button onClick="simpan()">Simpan</button>
+    <br><div id="aaa"></div>
     
     <script>
         const username = "Sukedi";
         const repo = "umkm";
         const filePath = "data.txt";
         const githubToken = encoding();
+        document.getElementById("alamat").innerHTML = githubToken;
     
         async function simpan() {
             const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
