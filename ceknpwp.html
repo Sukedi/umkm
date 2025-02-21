@@ -7,7 +7,7 @@
     content="width=device-width,
     user-scalable=no">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Cek NPWP</title>
+    <title>Cek NPWP Online</title>
 <style>
 body, table, tr, th, td {
     font-family: arial;
@@ -16,13 +16,15 @@ body, table, tr, th, td {
 </style>
 </head>
 <body>
-    <h3>Cek NPWP Online</h3>
+    <h3>Simulasi Cek NPWP Online</h3>
     <div id="output"></div>
     <hr>
     Ketik NPWP yang akan dicek:<br>
     <input type="number" id="inpNPWP" autofocus required>
     <button onClick="cekNPWP()">Cek</button>
-    
+    <hr>
+    <p>Website ini hanya untuk pembanding dengan website Dirjen Pajak yang belum bener: <a href="https://account.pajak.go.id/cek/48qoBpMOiSrLIww8ZnJctg==">Cek NPWP Online - Direjen Pajak Republik Indonesia</a></p>
+    <p><i>*) Sampai hari Jumat 21/02/2025 jam 10:00 WIB masih belum diperbaiki.</i></p>
     <script>
         async function fetchData() {
             const url = "https://sukedi.github.io/umkm/data.txt";
