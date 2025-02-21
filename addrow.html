@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" 
+    content="width=device-width,
+    user-scalable=no">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Add NPWP</title>
+<style>
+body, table, tr, th, td {
+    font-family: arial;
+    font-size: 14px;
+}
+</style>
+</head>
+<body>
+    <h3>Tambahkan NPWP Baru</h3>
+    <table width="100%">
+      <tr>
+        <td>NPWP</td><td>:</td>
+        <td><input type="number" id="npwp" required></td>
+      </tr>
+      <tr>
+        <td>Nama</td><td>:</td>
+        <td><input type="text" id="nama" maxlength="10" required></td>
+      </tr>
+      <tr>
+        <td>Alamat</td><td>:</td>
+        <td><input type="text" id="alamat" maxlength="15" required></td>
+      </tr>
+    </table>
+    <br><button onClick="simpan()">Simpan</button>
+    
+    <script>
+        const username = "Sukedi";
+        const repo = "umkm";
+        const filePath = "data.txt";
+        const githubToken = "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";
+    
+        async function simpan() {
+            const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
+            const npwp = document.getElementById("npwp").value;
+            const nama = document.getElementById("nama").value;
+            const alamat = document.getElementById("alamat").value;
+          
+            try {
+                const response = await fetch(apiUrl, {
+                    headers: { Authorization: `token ${githubToken}` }
+                });
+                if (!response.ok) throw new Error("Gagal mengambil file");
+                
+                const fileData = await response.json();
+                const content = atob(fileData.content); // Decode base64 ke teks
+                
+                const newRow = npwp+", "+nama+", "+alamat;
+                const updatedContent = content.trim() + "\n" + newRow;
+
+                const encodedContent = btoa(updatedContent);
+
+                const updateResponse = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: {
+                        Authorization: `token ${githubToken}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: "Menambahkan baris baru",
+                        content: encodedContent,
+                        sha: fileData.sha // Perlu SHA file lama untuk update
+                    })
+                });
+                
+                if (!updateResponse.ok) throw new Error("Gagal update file");
+
+//                console.log("File berhasil diperbarui di GitHub!");
+                alert("File berhasil diperbarui!");
+            } catch (error) {
+//                console.error("Error:", error);
+                alert("Gagal update file: " + error.message);
+            }
+        }
+                
+     //  function simpan() {
+     //   const url = "https://sukedi.github.io/umkm/data.txt";    
+     //     fetch(url)
+     //           .then(response => response.text())
+     //           .then(data => {
+     //               let newRow = npwp+", "+nama+", "+alamat;
+     //               let updatedContent = data.trim() + "\n" + newRow;
+     //               downloadFile(updatedContent);
+     //           })
+     //           .catch(error => console.error("Gagal mengambil file:", error));
+     //   }
+
+     //   function downloadFile(content) {
+     //       let blob = new Blob([content], { type: "text/plain" });
+     //       let a = document.createElement("a");
+     //       a.href = URL.createObjectURL(blob);
+     //       a.download = "DATA_UPDATED.TXT";
+     //       a.click();
+     //       console.log("File baru siap didownload:\n" + content);
+     //   }
+    
+    </script>
+</body>
+</html>
