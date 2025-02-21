@@ -8,3 +8,4 @@
 8888, PRABOWO, Istana
 9999, SUKEDI, Pemalang
 1212, Budi, Tn.abang
+1234, LUCKY, Cibubur 
