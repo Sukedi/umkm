@@ -32,15 +32,19 @@ body, table, tr, th, td {
       </tr>
     </table>
     <br><button onClick="simpan()">Simpan</button>
-    <br><div id="aaa"></div>
+    <hr>
+    <p>Note: data baru yang anda simpan tidak seketika 
+    dipublish sebab <img src="gitlogo.jpg" 
+    width="50"> akan melakukan 
+    proses <b><i>autentikasi</i></b> 
+    terlebih dulu sebelum publish.</p>
     
     <script>
         const username = "Sukedi";
         const repo = "umkm";
         const filePath = "data.txt";
         const githubToken = encoding();
-        document.getElementById("aaa").innerHTML = githubToken;
-    
+        
         async function simpan() {
             const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
             const npwp = document.getElementById("npwp").value;
