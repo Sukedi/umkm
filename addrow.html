@@ -32,12 +32,12 @@ body, table, tr, th, td {
       </tr>
     </table>
     <br><button onClick="simpan()">Simpan</button>
-    <hr>
-    <p>Note: data baru yang anda simpan tidak seketika 
-    dipublish sebab <img src="gitlogo.jpg" 
-    width="50"> akan melakukan 
+    <br><hr>
+    <p>Note:<br>Data baru yang anda simpan tidak langsung 
+    update sebab <b>GitHub</b> <img src="gitlogo.jpg" 
+    width="15"> akan melakukan 
     proses <b><i>autentikasi</i></b> 
-    terlebih dulu sebelum publish.</p>
+    terlebih dulu sebelum data dipublish.</p>
     
     <script>
         const username = "Sukedi";
@@ -71,12 +71,13 @@ body, table, tr, th, td {
                     body: JSON.stringify({
                         message: "Menambahkan baris baru",
                         content: encodedContent,
-                        sha: fileData.sha // Perlu SHA file lama untuk update
+                        sha: fileData.sha 
                     })
                 });
                 
                 if (!updateResponse.ok) throw new Error("Gagal update file");
-                alert("File berhasil diperbarui!");
+                berhasil();
+                window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
             } catch (error) {
                 alert("Gagal update file: " + error.message);
             }
@@ -88,6 +89,14 @@ function encoding() {
    return decript(keys, teks);
 }
 
+function berhasil(){
+Swal.fire({
+    title: "Berhasil!",
+    text: "Data berhasil disimpan.",
+    icon: "success"
+});
+}
+        
 function decript(num, txt) {
     let nmx = String(num);
     while (nmx.length > 1) {
