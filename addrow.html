@@ -55,7 +55,7 @@ body, table, tr, th, td {
                 const response = await fetch(apiUrl, {
                     headers: { Authorization: `token ${githubToken}` }
                 });
-                if (!response.ok) throw new Error("Gagal mengambil file");
+                if (!response.ok) throw new Error("Gagal baca file.");
                 
                 const fileData = await response.json();
                 const content = atob(fileData.content);
@@ -75,11 +75,13 @@ body, table, tr, th, td {
                     })
                 });
                 
-                if (!updateResponse.ok) throw new Error("Gagal update file");
+                if (!updateResponse.ok) throw new Error("Gagal simpan data.");
                 berhasil();
+                setTimeout(() => {
                 window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
+                }, 5000);
             } catch (error) {
-                alert("Gagal update file: " + error.message);
+                alert("Error: " + error.message);
             }
         }
                 
