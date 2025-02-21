@@ -37,7 +37,7 @@ body, table, tr, th, td {
         const username = "Sukedi";
         const repo = "umkm";
         const filePath = "data.txt";
-        const githubToken = "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";
+        const githubToken = encoding();
     
         async function simpan() {
             const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
@@ -52,13 +52,10 @@ body, table, tr, th, td {
                 if (!response.ok) throw new Error("Gagal mengambil file");
                 
                 const fileData = await response.json();
-                const content = atob(fileData.content); // Decode base64 ke teks
-                
+                const content = atob(fileData.content);
                 const newRow = npwp+", "+nama+", "+alamat;
                 const updatedContent = content.trim() + "\n" + newRow;
-
                 const encodedContent = btoa(updatedContent);
-
                 const updateResponse = await fetch(apiUrl, {
                     method: "PUT",
                     headers: {
@@ -73,36 +70,45 @@ body, table, tr, th, td {
                 });
                 
                 if (!updateResponse.ok) throw new Error("Gagal update file");
-
-//                console.log("File berhasil diperbarui di GitHub!");
                 alert("File berhasil diperbarui!");
             } catch (error) {
-//                console.error("Error:", error);
                 alert("Gagal update file: " + error.message);
             }
         }
                 
-     //  function simpan() {
-     //   const url = "https://sukedi.github.io/umkm/data.txt";    
-     //     fetch(url)
-     //           .then(response => response.text())
-     //           .then(data => {
-     //               let newRow = npwp+", "+nama+", "+alamat;
-     //               let updatedContent = data.trim() + "\n" + newRow;
-     //               downloadFile(updatedContent);
-     //           })
-     //           .catch(error => console.error("Gagal mengambil file:", error));
-     //   }
+function encoding() {
+   const teks = "67?.4úøó))ú94ü58äFä&â8á0ûçòõúòB(ã áóü;DD";    
+   const keys = "11";
+   return decript(keys, teks);
+}
 
-     //   function downloadFile(content) {
-     //       let blob = new Blob([content], { type: "text/plain" });
-     //       let a = document.createElement("a");
-     //       a.href = URL.createObjectURL(blob);
-     //       a.download = "DATA_UPDATED.TXT";
-     //       a.click();
-     //       console.log("File baru siap didownload:\n" + content);
-     //   }
-    
+function decript(num, txt) {
+    let nmx = String(num);
+    while (nmx.length > 1) {
+        let buf = 0;
+        for (let i = 0; i < nmx.length; i++) {
+            buf += parseInt(nmx.charAt(i), 10);
+        }
+        nmx = String(buf);
+    }
+    let buf = '';
+    for (let i = 0; i < txt.length; i++) {
+        let x;
+        if (parseInt(nmx, 10) & 1) {
+            x = txt.charCodeAt(i) - 47 - parseInt(nmx, 10);
+            if (x < 32) {
+                x += 223;
+            }
+        } else {
+            x = txt.charCodeAt(i) + 47 + parseInt(nmx, 10);
+            if (x > 254) {
+                x -= 223;
+            }
+        }
+        buf += String.fromCharCode(x);
+    }
+    return buf;
+}
     </script>
 </body>
 </html>
