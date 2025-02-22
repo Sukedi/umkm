@@ -52,6 +52,9 @@ body, table, tr, th, td {
             const alamat = document.getElementById("alamat").value;
             if (npwp=="" || nama=="" || alamat==""){
                 problem();
+                setTimeout(() => {
+                return;
+                }, 5000);
             }
             try {
                 const response = await fetch(apiUrl, {
