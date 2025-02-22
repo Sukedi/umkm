@@ -51,10 +51,8 @@ body, table, tr, th, td {
             const nama = document.getElementById("nama").value;
             const alamat = document.getElementById("alamat").value;
             if (npwp=="" || nama=="" || alamat==""){
-                problem();
-                setTimeout(() => {
+                await problem();
                 return;
-                }, 5000);
             }
             try {
                 const response = await fetch(apiUrl, {
@@ -81,15 +79,13 @@ body, table, tr, th, td {
                 });
                 
                 if (!updateResponse.ok) throw new Error("Gagal simpan data.");
-                berhasil();
-                setTimeout(() => {
+                await berhasil();
                 window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
-                }, 5000);
             } catch (error) {
                 alert("Error: " + error.message);
             }
         }
-                
+  
 function encoding() {
    const teks = "23;*ßû:Þì2#6,ò!úí?,Û?â-÷-óñú63ôÜõãÛ060==";
    const keys = "15";
