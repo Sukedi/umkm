@@ -20,15 +20,15 @@ body, table, tr, th, td {
     <table width="100%">
       <tr>
         <td>NPWP</td><td>:</td>
-        <td><input type="number" id="npwp" required></td>
+        <td><input type="number" id="npwp"></td>
       </tr>
       <tr>
         <td>Nama</td><td>:</td>
-        <td><input type="text" id="nama" maxlength="10" required></td>
+        <td><input type="text" id="nama" maxlength="10"></td>
       </tr>
       <tr>
         <td>Alamat</td><td>:</td>
-        <td><input type="text" id="alamat" maxlength="15" required></td>
+        <td><input type="text" id="alamat" maxlength="15"></td>
       </tr>
     </table>
     <br><button onClick="simpan()">Simpan</button>
@@ -50,7 +50,9 @@ body, table, tr, th, td {
             const npwp = document.getElementById("npwp").value;
             const nama = document.getElementById("nama").value;
             const alamat = document.getElementById("alamat").value;
-          
+            if (npwp=="" || nama=="" || alamat==""){
+                problem();
+            }
             try {
                 const response = await fetch(apiUrl, {
                     headers: { Authorization: `token ${githubToken}` }
@@ -98,7 +100,15 @@ Swal.fire({
     icon: "success"
 });
 }
-        
+
+function problem(){
+Swal.fire({
+    title: "Oh tidak!",
+    text: "Data wajib diisi.",
+    icon: "error"
+});
+}
+    
 function decript(num, txt) {
     let nmx = String(num);
     while (nmx.length > 1) {
