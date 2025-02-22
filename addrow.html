@@ -80,6 +80,7 @@ body, table, tr, th, td {
                 
                 if (!updateResponse.ok) throw new Error("Gagal simpan data.");
                 await berhasil();
+                await new Promise(resolve => setTimeout(resolve, 5000));
                 window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
             } catch (error) {
                 alert("Error: " + error.message);
@@ -103,7 +104,7 @@ Swal.fire({
 function problem(){
 Swal.fire({
     title: "Oh tidak!",
-    text: "Data wajib diisi.",
+    text: "Kolom data wajib diisi.",
     icon: "error"
 });
 }
