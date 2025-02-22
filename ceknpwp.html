@@ -23,11 +23,13 @@ body, table, tr, th, td {
     <input type="number" id="inpNPWP" autofocus required>
     <button onClick="cekNPWP()">Cek</button>
     <hr>
-    <p>Website ini hanya untuk pembanding dengan website Dirjen Pajak yang belum bener: <br><a href="https://account.pajak.go.id/cek/48qoBpMOiSrLIww8ZnJctg==">Cek NPWP Online - Direjen Pajak RI</a></p>
-    <p><i>*) Sampai hari Jumat 21/02/2025 jam 10:00 WIB masih belum diperbaiki.</i></p>
+    <p>Website ini hanya untuk pembanding dengan website Dirjen Pajak yang belum berjalan 
+        sebagaimana mestinya. Linknya adalah sbb: <br><a href="https://account.pajak.go.id/cek/48qoBpMOiSrLIww8ZnJctg==">Cek NPWP Online - Direjen Pajak RI</a></p>
+    <p><i>*) Sampai hari Sabtu 22/02/2025 jam 14:00 WIB masih belum diperbaiki.</i></p>
     <hr>
-    <p>Ingin tambahkan data simulai? 
+    <p>Ingin tambahkan data simulasi? 
     <a href="https://sukedi.github.io/umkm/addrow.html">Klik di sini</a></p>
+
     <script>
         async function fetchData() {
             const url = "https://sukedi.github.io/umkm/data.txt";
@@ -35,7 +37,7 @@ body, table, tr, th, td {
                 const response = await fetch(url);
                 const text = await response.text();
                 const lines = text.split("\n").map(line => line.split(", ").map(item => item.trim()));
-                let output = "Data source ini hanya utk cek visual:<table width='100%' border='1'>";
+                let output = "Data fiktif ini hanya utk cek visual:<table width='100%' border='1'>";
                     output += "<tr style='font-weight:bold;'><td>NPWP</td><td>Nama</td><td>Alamat</td></tr>";
                 lines.forEach((row, i) => {
                     output += "<tr>";
