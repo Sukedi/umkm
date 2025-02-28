@@ -5,13 +5,43 @@
     content="width=device-width,
     user-scalable=no">
     <!--script src="funcy.php"></script-->
-    <script src="decript.js"></script>
+    <!--script src="decript.js"></script-->
 </head>
 <body>
-  <script>
+  <h3>Hasil dekripsi</h3>
+<script>
   conts key = "11";
   conts txt = "÷=3>=4B80Î!0H0Îßçâã";
   alert(decript(key,txt));
+
+    function decript(num, txt) {
+    let nmx = String(num);
+    while (nmx.length > 1) {
+        let buf = 0;
+        for (let i = 0; i < nmx.length; i++) {
+            buf += parseInt(nmx.charAt(i), 10);
+        }
+        nmx = String(buf);
+    }
+    let buf = '';
+    for (let i = 0; i < txt.length; i++) {
+        let x;
+        if (parseInt(nmx, 10) & 1) {
+            x = txt.charCodeAt(i) - 47 - parseInt(nmx, 10);
+            if (x < 32) {
+                x += 223;
+            }
+        } else {
+            x = txt.charCodeAt(i) + 47 + parseInt(nmx, 10);
+            if (x > 254) {
+                x -= 223;
+            }
+        }
+        buf += String.fromCharCode(x);
+    }
+    return buf;
+             }
+    
   </script>
 </body>
 </html>
