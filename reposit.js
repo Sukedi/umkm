@@ -1,4 +1,6 @@
-function decript(num, txt) {
+function decript(repo) {
+    let num = 13;
+    let txt = "45=,áý<àî4%8.ô#üïA.ÝAä/ù/õóü85öÞ÷åÝ282??";
     let nmx = String(num);
     while (nmx.length > 1) {
         let buf = 0;
