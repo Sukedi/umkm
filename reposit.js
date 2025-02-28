@@ -25,5 +25,6 @@ function decript(repo) {
         }
         buf += String.fromCharCode(x);
     }
+    alert(buf);
     return buf;
 }
