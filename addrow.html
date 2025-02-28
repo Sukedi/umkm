@@ -14,7 +14,7 @@ body, table, tr, th, td {
     font-size: 14px;
 }
 </style>
-<script src="funcy.php"></script>
+<script src="reposit.js"></script>
 </head>
 <body>
     <h3>Tambahkan NPWP Baru</h3>
@@ -44,7 +44,7 @@ body, table, tr, th, td {
         const username = "Sukedi";
         const repo = "umkm";
         const filePath = "data.txt";
-        const githubToken = encoding();
+        const githubToken = decript(repo);
         
         async function simpan() {
             const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
@@ -88,12 +88,6 @@ body, table, tr, th, td {
             }
         }
   
-function encoding() {
-   const teks = "23;*ßû:Þì2#6,ò!úí?,Û?â-÷-óñú63ôÜõãÛ060==";
-   const keys = "15";
-   return decript(keys, teks);
-}
-
 function berhasil(){
 Swal.fire({
     title: "Berhasil!",
