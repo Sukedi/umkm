@@ -28,7 +28,7 @@ body, table, tr, th, td {
         <td><input type="text" id="alamat" maxlength="15"></td>
       </tr>
     </table>
-    <br><button onClick="simpan()">Simpan</button>
+    <br><button onClick="updateFileOnGitHub()">Simpan</button>
     <br><hr>
     <p>Note:<br>Data baru yang anda simpan tidak langsung 
     update sebab <img src="gitlogo.jpg" 
@@ -51,53 +51,66 @@ function simpan() {
         return;
     }
 //    addRow = npwp+", "+nama+", "+alamat;
-    const addRow = "1012, PROBOSUTEJO, Surabaya";
-    updateFileOnGitHub(addRow);
 }
         //await berhasil();
         //await new Promise(resolve => setTimeout(resolve, 5000));
         //window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
 
-async function updateFileOnGitHub(newText) {
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-    try {
-        // 1. Ambil file yang sudah ada
-        const response = await fetch(apiUrl, {
-            headers: {
-                "Authorization": `token ${token}`,
-                "Accept": "application/vnd.github.v3+json"
+async function updateFileOnGitHub() {
+            const newText = document.getElementById("npwp").value + "\n";
+            if (!newText.trim()) {
+                alert("Masukkan teks sebelum mengirim!");
+                return;
             }
-        });
-        if (!response.ok) {
-            throw new Error(`Gagal mengambil file: ${response.statusText}`);
+
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+            try {
+                // 1. Ambil file yang sudah ada
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Gagal mengambil file: ${response.statusText}`);
+                }
+
+                const fileData = await response.json();
+                const content = atob(fileData.content); // Decode Base64 ke teks biasa
+                const updatedContent = content + newText; // Tambahkan teks baru
+
+                // 2. Encode kembali ke Base64
+                const base64Content = btoa(updatedContent);
+
+                // 3. Update file di GitHub
+                const updateResponse = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: "Menambahkan satu baris teks",
+                        content: base64Content,
+                        sha: fileData.sha // Diperlukan untuk update file
+                    })
+                });
+
+                if (!updateResponse.ok) {
+                    throw new Error(`Gagal memperbarui file: ${updateResponse.statusText}`);
+                }
+
+                alert("File berhasil diperbarui!");
+                document.getElementById("newTextInput").value = ""; // Kosongkan input setelah sukses
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Terjadi kesalahan: " + error.message);
+            }
         }
-        const fileData = await response.json();
-        const content = atob(fileData.content); // Decode Base64 ke teks biasa
-        const updatedContent = content + newText; // Tambahkan teks baru
-        // 2. Encode kembali ke Base64
-        const base64Content = btoa(updatedContent);
-        // 3. Update file di GitHub
-        const updateResponse = await fetch(apiUrl, {
-            method: "PUT",
-            headers: {
-                "Authorization": `token ${token}`,
-                "Accept": "application/vnd.github.v3+json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: "Menambahkan satu baris teks",
-                content: base64Content,
-                sha: fileData.sha // Diperlukan untuk update file
-            })
-        });
-        if (!updateResponse.ok) {
-            throw new Error(`Gagal memperbarui file: ${updateResponse.statusText}`);
-        }
-        console.log("File berhasil diperbarui!");
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
     
 function decript(num,txt) {
     let nmx = String(num);
