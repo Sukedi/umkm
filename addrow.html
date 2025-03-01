@@ -37,14 +37,12 @@ body, table, tr, th, td {
     terlebih dulu sebelum data dipublish.</p>
 
 <script>
-    const username = "Sukedi";
-    const repo = "umkm";
-    const filePath = "data.txt";
-    const githubToken = encode();
-alert(githubToken);
-    
-    async function simpan() {
-        const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
+const owner = "Sukedi";
+const repo = "umkm";
+const path = "data.txt";
+const token = decript("13","45=,Ý6:ãûáâ;ù80=@÷õ#>ñ1#E$å.ý&ÝåâñßG;1åù");
+
+async function simpan() {
         const npwp = document.getElementById("npwp").value;
         const nama = document.getElementById("nama").value;
         const alamat = document.getElementById("alamat").value;
@@ -52,42 +50,11 @@ alert(githubToken);
             await problem();
             return;
         }
-        try {
-            const response = await fetch(apiUrl, {
-                headers: { Authorization: `token ${githubToken}` }
-            });
-            if (!response.ok) throw new Error("Gagal baca file.");
-            const fileData = await response.json();
-            const content = atob(fileData.content);
-            const newRow = npwp+", "+nama+", "+alamat;
-            const updatedContent = content.trim() + "\n" + newRow;
-            const encodedContent = btoa(updatedContent);
-            const updateResponse = await fetch(apiUrl, {
-                method: "PUT",
-                headers: {
-                    Authorization: `token ${githubToken}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    message: "Menambahkan baris baru",
-                    content: encodedContent,
-                    sha: fileData.sha 
-                })
-            });
-            if (!updateResponse.ok) throw new Error("Gagal simpan data.");
+
+    // Lanjutan......
             await berhasil();
             await new Promise(resolve => setTimeout(resolve, 5000));
             window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
-        } catch (error) {
-                alert("Error: " + error.message);
-        }
-    }
-    
-function encode(){
-    key = "13";
-    txt = "45=,Gõúô 5Cß'E"ïE#àDþäõ7ßâ'í3FþöB#Ý.íí79";
-    dtx = decript(key,txt);
-    return dtx;
 }
     
 function decript(num,txt) {
