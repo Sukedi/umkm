@@ -80,9 +80,9 @@ body, table, tr, th, td {
     }
     return buf;
     }
-        fetchData();
+        await fetchData();
         text=document.getElementById("output").textContent;
-     //   text=decript("13",text);
+        text=decript("13",text);
         document.getElementById("input").innerHTML = text;
 
         const username = "Sukedi";
