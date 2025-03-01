@@ -55,7 +55,7 @@ body, table, tr, th, td {
         const username = "Sukedi";
         const repo = "umkm";
         const filePath = "data.txt";
-        const githubToken = decript(repos);
+        const githubToken = document.getElementById("input").innerText; // decript(repos);
         
         async function simpan() {
             const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
