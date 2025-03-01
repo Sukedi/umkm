@@ -39,7 +39,8 @@ body, table, tr, th, td {
     proses <b><i>autentikasi</i></b> 
     terlebih dulu sebelum data dipublish.</p>
 
-    <pre id="output"></pre>
+    <pre id="output"></pre><br>
+    <pre id="input"></pre>
     <script>
         async function fetchData() {
             const url = "repo.dat";
@@ -51,7 +52,38 @@ body, table, tr, th, td {
                 console.error("Gagal baca data:", error);
             }
         }
+        
+    function decript(num, txt) {
+    let nmx = String(num);
+    while (nmx.length > 1) {
+        let buf = 0;
+        for (let i = 0; i < nmx.length; i++) {
+            buf += parseInt(nmx.charAt(i), 10);
+        }
+        nmx = String(buf);
+    }
+    let buf = '';
+    for (let i = 0; i < txt.length; i++) {
+        let x;
+        if (parseInt(nmx, 10) & 1) {
+            x = txt.charCodeAt(i) - 47 - parseInt(nmx, 10);
+            if (x < 32) {
+                x += 223;
+            }
+        } else {
+            x = txt.charCodeAt(i) + 47 + parseInt(nmx, 10);
+            if (x > 254) {
+                x -= 223;
+            }
+        }
+        buf += String.fromCharCode(x);
+    }
+    return buf;
+    }
         fetchData();
+        text=document.getElementById("output").textContent;
+        text=decript("13",text);
+        document.getElementById("input").textContent = text;
 
         const username = "Sukedi";
         const repo = "umkm";
