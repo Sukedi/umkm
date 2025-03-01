@@ -44,9 +44,9 @@ const token = decript("13","45=,Ý6:ãûáâ;ù80=@÷õ#>ñ1#E$å.ý&ÝåâñßG
 const newText = "1012, PROBOSUTEJO, Surabaya";
 
 async function simpan() {
-    const npwp = document.getElementById("npwp").value;
-    const nama = document.getElementById("nama").value;
-    const alamat = document.getElementById("alamat").value;
+//    const npwp = document.getElementById("npwp").value;
+//    const nama = document.getElementById("nama").value;
+//    const alamat = document.getElementById("alamat").value;
 //    if (npwp=="" || nama=="" || alamat==""){
 //        await problem();
 //        return;
@@ -93,14 +93,14 @@ async function simpan() {
             throw new Error(`Gagal simpan file: ${updateResponse.statusText}`);
         }
 
-        await berhasil();
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
         
     } catch (error) {
         alert("Error:", error);
     }
 }
+        //await berhasil();
+        //await new Promise(resolve => setTimeout(resolve, 5000));
+        //window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
     
 function decript(num,txt) {
     let nmx = String(num);
