@@ -10,19 +10,93 @@
 </head>
 <body>
     <h2>Data dari File TXT</h2>
-    <pre id="output"></pre>
-    <script>
-        async function fetchData() {
-            const url = "repo.dat";
-            try {
-                const response = await fetch(url);
-                const text = await response.text();
-                document.getElementById("output").textContent = text;
-            } catch (error) {
-                console.error("Gagal baca data:", error);
+    
+<script>
+const owner = "Sukedi";
+const repo = "umkm";
+const path = "data.txt";
+const token = decript("13","45=,Ý6:ãûáâ;ù80=@÷õ#>ñ1#E$å.ý&ÝåâñßG;1åù");
+const newText = "\nIni adalah baris baru.";
+
+async function updateFileOnGitHub() {
+    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+    try {
+        // 1. Ambil file yang sudah ada
+        const response = await fetch(apiUrl, {
+            headers: {
+                "Authorization": `token ${token}`,
+                "Accept": "application/vnd.github.v3+json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Gagal mengambil file: ${response.statusText}`);
+        }
+
+        const fileData = await response.json();
+        const content = atob(fileData.content); // Decode Base64 ke teks biasa
+        const updatedContent = content + newText; // Tambahkan teks baru
+
+        // 2. Encode kembali ke Base64
+        const base64Content = btoa(updatedContent);
+
+        // 3. Update file di GitHub
+        const updateResponse = await fetch(apiUrl, {
+            method: "PUT",
+            headers: {
+                "Authorization": `token ${token}`,
+                "Accept": "application/vnd.github.v3+json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: "Menambahkan satu baris teks",
+                content: base64Content,
+                sha: fileData.sha // Diperlukan untuk update file
+            })
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error(`Gagal memperbarui file: ${updateResponse.statusText}`);
+        }
+
+        console.log("File berhasil diperbarui!");
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+function decript(num, txt) {
+    let nmx = String(num);
+    while (nmx.length > 1) {
+        let buf = 0;
+        for (let i = 0; i < nmx.length; i++) {
+            buf += parseInt(nmx.charAt(i), 10);
+        }
+        nmx = String(buf);
+    }
+    let buf = '';
+    for (let i = 0; i < txt.length; i++) {
+        let x;
+        if (parseInt(nmx, 10) & 1) {
+            x = txt.charCodeAt(i) - 47 - parseInt(nmx, 10);
+            if (x < 32) {
+                x += 223;
+            }
+        } else {
+            x = txt.charCodeAt(i) + 47 + parseInt(nmx, 10);
+            if (x > 254) {
+                x -= 223;
             }
         }
-        fetchData();
-    </script>
+        buf += String.fromCharCode(x);
+    }
+    return buf;
+}
+
+// Jalankan fungsi
+updateFileOnGitHub();
+
+</script>
 </body>
 </html>
