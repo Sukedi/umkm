@@ -40,8 +40,9 @@ body, table, tr, th, td {
     const username = "Sukedi";
     const repo = "umkm";
     const filePath = "data.txt";
-    const githubToken = decript("13", "45=,Gõúô 5Cß'E"ïE#àDþäõ7ßâ'í3FþöB#Ý.íí79");
-
+    const githubToken = encode();
+alert(githubToken);
+    
     async function simpan() {
         const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
         const npwp = document.getElementById("npwp").value;
@@ -81,6 +82,13 @@ body, table, tr, th, td {
                 alert("Error: " + error.message);
         }
     }
+    
+function encode(){
+    key = "13";
+    txt = "45=,Gõúô 5Cß'E"ïE#àDþäõ7ßâ'í3FþöB#Ý.íí79";
+    dtx = decript(key,txt);
+    return dtx;
+}
     
 function decript(num,txt) {
     let nmx = String(num);
