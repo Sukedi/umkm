@@ -48,7 +48,7 @@ body, table, tr, th, td {
     const username = "Sukedi";
     const repo = "umkm";
     const filePath = "data.txt";
-    const githubToken = "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";
+    const githubToken = "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";
 
     async function simpan() {
         const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
@@ -63,7 +63,7 @@ body, table, tr, th, td {
             const response = await fetch(apiUrl, {
                 headers: { Authorization: `token ${githubToken}` }
             });
-            if (!response.ok) throw new Error(githubToken); // "Gagal baca file.");
+            if (!response.ok) throw new Error("Gagal baca file.");
             const fileData = await response.json();
             const content = atob(fileData.content);
             const newRow = npwp+", "+nama+", "+alamat;
