@@ -29,6 +29,5 @@ function decript(num,txt) {
         }
         buf += String.fromCharCode(x);
     }
-    alert(buf);
     return buf;
 }
