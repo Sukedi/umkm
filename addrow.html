@@ -2,10 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" 
-    content="width=device-width,
-    user-scalable=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Add NPWP</title>
 <style>
@@ -14,7 +11,6 @@ body, table, tr, th, td {
     font-size: 14px;
 }
 </style>
-<!--script src="reposit.js"></script  onLoad="proses()"-->
 </head>
 <body>
     <h3>Tambahkan NPWP Baru</h3>
@@ -40,15 +36,11 @@ body, table, tr, th, td {
     proses <b><i>autentikasi</i></b> 
     terlebih dulu sebelum data dipublish.</p>
 
-    <div id="output"></div>
-    <div id="input"></div>
-
 <script>
-    const tmp = document.getElementById("input").innerText;
     const username = "Sukedi";
     const repo = "umkm";
     const filePath = "data.txt";
-    const githubToken = "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";
+    const githubToken = decript("13", "45=,Gõúô 5Cß'E"ïE#àDþäõ7ßâ'í3FþöB#Ý.íí79");
 
     async function simpan() {
         const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
@@ -89,14 +81,35 @@ body, table, tr, th, td {
                 alert("Error: " + error.message);
         }
     }
-
-async function proses() {
-    let txt = await fetchData("repo.dat");
-    document.getElementById("output").innerText=txt.substring(0, 40);
-    txt=decript("13",txt);
-    document.getElementById("input").innerText=txt.substring(0, 40);
+    
+function decript(num,txt) {
+    let nmx = String(num);
+    while (nmx.length > 1) {
+        let buf = 0;
+        for (let i = 0; i < nmx.length; i++) {
+            buf += parseInt(nmx.charAt(i), 10);
+        }
+        nmx = String(buf);
+    }
+    let buf = '';
+    for (let i = 0; i < txt.length; i++) {
+        let x;
+        if (parseInt(nmx, 10) & 1) {
+            x = txt.charCodeAt(i) - 47 - parseInt(nmx, 10);
+            if (x < 32) {
+                x += 223;
+            }
+        } else {
+            x = txt.charCodeAt(i) + 47 + parseInt(nmx, 10);
+            if (x > 254) {
+                x -= 223;
+            }
+        }
+        buf += String.fromCharCode(x);
+    }
+    return buf;
 }
-
+    
 function berhasil(){
 Swal.fire({
     title: "Berhasil!",
