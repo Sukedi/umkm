@@ -52,10 +52,11 @@ body, table, tr, th, td {
     document.getElementById("input").innerText=txt.substring(0, 40);
     }
 
+        const tmp = document.getElementById("input").innerText;
         const username = "Sukedi";
         const repo = "umkm";
         const filePath = "data.txt";
-        const githubToken = document.getElementById("input").innerText; // decript(repos);
+        const githubToken = tmp.substring(0, 40); // decript(repos);
         
         async function simpan() {
             const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
