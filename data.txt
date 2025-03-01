@@ -8,3 +8,4 @@
 8888, PRABOWO, Istana
 9999, SUKEDI, Pemalang
 1212, RAHARJO, Cilacap
+1010, SUPRAPTI, Surabaya 
