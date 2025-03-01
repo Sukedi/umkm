@@ -42,64 +42,61 @@ body, table, tr, th, td {
 
     <div id="output"></div>
     <div id="input"></div>
-    <button onClick="proses()">proses</button>
-    
-    <script>
-    async function proses() {
+
+<script>
+    const tmp = document.getElementById("input").innerText;
+    const username = "Sukedi";
+    const repo = "umkm";
+    const filePath = "data.txt";
+    const githubToken = tmp; // decript(repos);
+        alert(tmp);
+    async function simpan() {
+        const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
+        const npwp = document.getElementById("npwp").value;
+        const nama = document.getElementById("nama").value;
+        const alamat = document.getElementById("alamat").value;
+        if (npwp=="" || nama=="" || alamat==""){
+            await problem();
+            return;
+        }
+        try {
+            const response = await fetch(apiUrl, {
+                headers: { Authorization: `token ${githubToken}` }
+            });
+            if (!response.ok) throw new Error(githubToken); // "Gagal baca file.");
+            const fileData = await response.json();
+            const content = atob(fileData.content);
+            const newRow = npwp+", "+nama+", "+alamat;
+            const updatedContent = content.trim() + "\n" + newRow;
+            const encodedContent = btoa(updatedContent);
+            const updateResponse = await fetch(apiUrl, {
+                method: "PUT",
+                headers: {
+                    Authorization: `token ${githubToken}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    message: "Menambahkan baris baru",
+                    content: encodedContent,
+                    sha: fileData.sha 
+                })
+            });
+            if (!updateResponse.ok) throw new Error("Gagal simpan data.");
+            await berhasil();
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
+        } catch (error) {
+                alert("Error: " + error.message);
+        }
+    }
+
+async function proses() {
     let txt = await fetchData("repo.dat");
     document.getElementById("output").innerText=txt.substring(0, 40);
     txt=decript("13",txt);
     document.getElementById("input").innerText=txt.substring(0, 40);
-    }
+}
 
-        const tmp = document.getElementById("input").innerText;
-        const username = "Sukedi";
-        const repo = "umkm";
-        const filePath = "data.txt";
-        const githubToken = tmp.substring(0, 40); // decript(repos);
-        
-        async function simpan() {
-            const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
-            const npwp = document.getElementById("npwp").value;
-            const nama = document.getElementById("nama").value;
-            const alamat = document.getElementById("alamat").value;
-            if (npwp=="" || nama=="" || alamat==""){
-                await problem();
-                return;
-            }
-            try {
-                const response = await fetch(apiUrl, {
-                    headers: { Authorization: `token ${githubToken}` }
-                });
-                if (!response.ok) throw new Error(githubToken); // "Gagal baca file.");
-                
-                const fileData = await response.json();
-                const content = atob(fileData.content);
-                const newRow = npwp+", "+nama+", "+alamat;
-                const updatedContent = content.trim() + "\n" + newRow;
-                const encodedContent = btoa(updatedContent);
-                const updateResponse = await fetch(apiUrl, {
-                    method: "PUT",
-                    headers: {
-                        Authorization: `token ${githubToken}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        message: "Menambahkan baris baru",
-                        content: encodedContent,
-                        sha: fileData.sha 
-                    })
-                });
-                
-                if (!updateResponse.ok) throw new Error("Gagal simpan data.");
-                await berhasil();
-                await new Promise(resolve => setTimeout(resolve, 5000));
-                window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
-            } catch (error) {
-                alert("Error: " + error.message);
-            }
-        }
-  
 function berhasil(){
 Swal.fire({
     title: "Berhasil!",
@@ -116,7 +113,7 @@ Swal.fire({
 });
 }
     
-    </script>
+</script>
 
 </body>
 </html>
