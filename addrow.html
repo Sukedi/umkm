@@ -41,19 +41,24 @@ const owner = "Sukedi";
 const repo = "umkm";
 const path = "data.txt";
 const token = decript("13","45=,Ý6:ãûáâ;ù80=@÷õ#>ñ1#E$å.ý&ÝåâñßG;1åù");
-const newText = "1012, PROBOSUTEJO, Surabaya";
 
-async function simpan() {
-//    const npwp = document.getElementById("npwp").value;
-//    const nama = document.getElementById("nama").value;
-//    const alamat = document.getElementById("alamat").value;
-//    if (npwp=="" || nama=="" || alamat==""){
-//        await problem();
-//        return;
-//    }
+function simpan() {
+    const npwp = document.getElementById("npwp").value;
+    const nama = document.getElementById("nama").value;
+    const alamat = document.getElementById("alamat").value;
+    if (npwp=="" || nama=="" || alamat==""){
+        await problem();
+        return;
+    }
+//    addRow = npwp+", "+nama+", "+alamat;
+    const addRow = "1012, PROBOSUTEJO, Surabaya";
+    updateFileOnGitHub(addRow);
+}
+        //await berhasil();
+        //await new Promise(resolve => setTimeout(resolve, 5000));
+        //window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
 
-    // Lanjutkan......
-//    newText=npwp+", "+nama+", "+alamat;
+async function updateFileOnGitHub(newText) {
     const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
     try {
         // 1. Ambil file yang sudah ada
@@ -63,17 +68,14 @@ async function simpan() {
                 "Accept": "application/vnd.github.v3+json"
             }
         });
-
         if (!response.ok) {
-            throw new Error(`Gagal membaca file: ${response.statusText}`);
+            throw new Error(`Gagal mengambil file: ${response.statusText}`);
         }
-
+        const fileData = await response.json();
         const content = atob(fileData.content); // Decode Base64 ke teks biasa
         const updatedContent = content + newText; // Tambahkan teks baru
-
         // 2. Encode kembali ke Base64
         const base64Content = btoa(updatedContent);
-
         // 3. Update file di GitHub
         const updateResponse = await fetch(apiUrl, {
             method: "PUT",
@@ -85,22 +87,17 @@ async function simpan() {
             body: JSON.stringify({
                 message: "Menambahkan satu baris teks",
                 content: base64Content,
-                sha: fileData.sha
+                sha: fileData.sha // Diperlukan untuk update file
             })
         });
-
         if (!updateResponse.ok) {
-            throw new Error(`Gagal simpan file: ${updateResponse.statusText}`);
+            throw new Error(`Gagal memperbarui file: ${updateResponse.statusText}`);
         }
-
-        
+        console.log("File berhasil diperbarui!");
     } catch (error) {
-        alert("Error:", error);
+        console.error("Error:", error);
     }
 }
-        //await berhasil();
-        //await new Promise(resolve => setTimeout(resolve, 5000));
-        //window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
     
 function decript(num,txt) {
     let nmx = String(num);
@@ -145,7 +142,7 @@ Swal.fire({
     icon: "error"
 });
 }
-    simpan();
+    
 </script>
 
 </body>
