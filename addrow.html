@@ -80,9 +80,9 @@ body, table, tr, th, td {
 
     async function proses() {
     let txt = await fetchData("repo.dat");
-    document.getElementById("output").innerText=txt.length;
+    document.getElementById("output").innerText=txt.substring(0, 40);
     txt=decript("13",txt);
-    document.getElementById("input").innerText=txt.length;
+    document.getElementById("input").innerText=txt.substring(0, 40);
     }
 
         const username = "Sukedi";
