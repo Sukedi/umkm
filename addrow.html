@@ -39,19 +39,15 @@ body, table, tr, th, td {
     proses <b><i>autentikasi</i></b> 
     terlebih dulu sebelum data dipublish.</p>
 
-    <pre id="output"></pre>
+    <div id="output"></div>
     <div id="input"></div>
+    
     <script>
-        async function fetchData() {
-            const url = "repo.dat";
-            try {
-                const response = await fetch(url);
-                const text = await response.text();
-                document.getElementById("output").textContent = text;
-            } catch (error) {
-                console.error("Gagal baca data:", error);
-            }
-        }
+    async function fetchData(file){
+      const response = await fetch(file);
+      const text = await response.text();
+      return text;
+    }
         
     function decript(num, txt) {
     let nmx = String(num);
@@ -80,10 +76,11 @@ body, table, tr, th, td {
     }
     return buf;
     }
-        await fetchData();
-        text=document.getElementById("output").textContent;
-        text=decript("13",text);
-        document.getElementById("input").innerHTML = text;
+        
+    let txt = await fetchData("repo.dat");
+    document.getElementById("output").innerText=txt;
+    txt=decript("13",txt);
+    document.getElementById("input").innerText=txt;
 
         const username = "Sukedi";
         const repo = "umkm";
