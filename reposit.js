@@ -1,6 +1,10 @@
-function decript(repo) {
-    let num = "13";
-    let txt = "45=,áý<àî4%8.ô#üïA.ÝAä/ù/õóü85öÞ÷åÝ282??";
+async function fetchData(file){
+      const response = await fetch(file);
+      const text = await response.text();
+      return text;
+}
+
+function decript(num,txt) {
     let nmx = String(num);
     while (nmx.length > 1) {
         let buf = 0;
