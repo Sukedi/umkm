@@ -41,6 +41,7 @@ body, table, tr, th, td {
 
     <div id="output"></div>
     <div id="input"></div>
+    <button onClick="proses()">proses</button>
     
     <script>
     async function fetchData(file){
@@ -76,11 +77,13 @@ body, table, tr, th, td {
     }
     return buf;
     }
-        
+
+    async function proses() {
     let txt = await fetchData("repo.dat");
     document.getElementById("output").innerText=txt;
     txt=decript("13",txt);
     document.getElementById("input").innerText=txt;
+    }
 
         const username = "Sukedi";
         const repo = "umkm";
