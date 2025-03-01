@@ -3,100 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" 
-    content="width=device-width,
-    user-scalable=no">
-    <title>Baca File TXT</title>
+    <title>Tambah Baris ke GitHub</title>
 </head>
 <body>
-    <h2>Data dari File TXT</h2>
-    
-<script>
-const owner = "Sukedi";
-const repo = "umkm";
-const path = "data.txt";
-const token = decript("13","45=,Ý6:ãûáâ;ù80=@÷õ#>ñ1#E$å.ý&ÝåâñßG;1åù");
-const newText = "\n1010, BEJOSUSNO, Bandung";
+    <input type="text" id="newTextInput" placeholder="Masukkan teks baru">
+    <button onclick="updateFileOnGitHub()">Tambah ke File</button>
 
-async function updateFileOnGitHub() {
-    const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    <script>
+        const owner = "USERNAME"; // Ganti dengan username GitHub kamu
+        const repo = "gudang"; // Ganti dengan nama repository kamu
+        const path = "namafile.txt"; // Ganti dengan path file di repo kamu
+        const token = "GITHUB_TOKEN"; // Ganti dengan token GitHub kamu
 
-    try {
-        // 1. Ambil file yang sudah ada
-        const response = await fetch(apiUrl, {
-            headers: {
-                "Authorization": `token ${token}`,
-                "Accept": "application/vnd.github.v3+json"
+        async function updateFileOnGitHub() {
+            const newText = document.getElementById("newTextInput").value + "\n"; // Ambil teks dari input
+            if (!newText.trim()) {
+                alert("Masukkan teks sebelum mengirim!");
+                return;
             }
-        });
 
-        if (!response.ok) {
-            throw new Error(`Gagal mengambil file: ${response.statusText}`);
-        }
+            const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
-        const fileData = await response.json();
-        const content = atob(fileData.content); // Decode Base64 ke teks biasa
-        const updatedContent = content + newText; // Tambahkan teks baru
+            try {
+                // 1. Ambil file yang sudah ada
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
+                });
 
-        // 2. Encode kembali ke Base64
-        const base64Content = btoa(updatedContent);
+                if (!response.ok) {
+                    throw new Error(`Gagal mengambil file: ${response.statusText}`);
+                }
 
-        // 3. Update file di GitHub
-        const updateResponse = await fetch(apiUrl, {
-            method: "PUT",
-            headers: {
-                "Authorization": `token ${token}`,
-                "Accept": "application/vnd.github.v3+json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                message: "Menambahkan satu baris teks",
-                content: base64Content,
-                sha: fileData.sha // Diperlukan untuk update file
-            })
-        });
+                const fileData = await response.json();
+                const content = atob(fileData.content); // Decode Base64 ke teks biasa
+                const updatedContent = content + newText; // Tambahkan teks baru
 
-        if (!updateResponse.ok) {
-            throw new Error(`Gagal memperbarui file: ${updateResponse.statusText}`);
-        }
+                // 2. Encode kembali ke Base64
+                const base64Content = btoa(updatedContent);
 
-        console.log("File berhasil diperbarui!");
-    } catch (error) {
-        console.error("Error:", error);
-    }
-}
+                // 3. Update file di GitHub
+                const updateResponse = await fetch(apiUrl, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: "Menambahkan satu baris teks",
+                        content: base64Content,
+                        sha: fileData.sha // Diperlukan untuk update file
+                    })
+                });
 
-function decript(num, txt) {
-    let nmx = String(num);
-    while (nmx.length > 1) {
-        let buf = 0;
-        for (let i = 0; i < nmx.length; i++) {
-            buf += parseInt(nmx.charAt(i), 10);
-        }
-        nmx = String(buf);
-    }
-    let buf = '';
-    for (let i = 0; i < txt.length; i++) {
-        let x;
-        if (parseInt(nmx, 10) & 1) {
-            x = txt.charCodeAt(i) - 47 - parseInt(nmx, 10);
-            if (x < 32) {
-                x += 223;
-            }
-        } else {
-            x = txt.charCodeAt(i) + 47 + parseInt(nmx, 10);
-            if (x > 254) {
-                x -= 223;
+                if (!updateResponse.ok) {
+                    throw new Error(`Gagal memperbarui file: ${updateResponse.statusText}`);
+                }
+
+                alert("File berhasil diperbarui!");
+                document.getElementById("newTextInput").value = ""; // Kosongkan input setelah sukses
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Terjadi kesalahan: " + error.message);
             }
         }
-        buf += String.fromCharCode(x);
-    }
-    return buf;
-}
-
-// Jalankan fungsi
-updateFileOnGitHub();
-
-</script>
+    </script>
 </body>
 </html>
