@@ -55,7 +55,9 @@ async function updateFileOnGitHub() {
                 });
                 return;
             }
-        //    nama=nama.toUpperCase();
+            if (cekExist(npwp)==0){
+                return;
+            }
             newText = npwp+", "+nama.toUpperCase()+", "+alamat+"\n";
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
@@ -140,6 +142,37 @@ function decript(num,txt) {
     return buf;
             }
 
+async function cekExist(newNumber) {
+    const dataFile = "data.txt"; // Path ke file data.txt
+    const response = await fetch(dataFile);
+    
+    if (!response.ok) {
+        Swal.fire({
+        title: "Error",
+        text: "Gagal membaca file data.",
+        icon: "error"
+        });
+        return 0;
+    }
+
+    const textData = await response.text();
+    const rows = textData.split("\n").map(row => row.trim()).filter(row => row !== ""); // Pisah per baris
+
+    // Cek apakah nomor sudah ada dalam data
+    const isExist = rows.some(row => row.startsWith(newNumber + ",")); // Pengecekan berbasis nomor
+
+    if (isExist) {
+        alert(`Nomor ${newNumber} sudah eksis!`);
+        Swal.fire({
+        title: "Warning",
+        text: `NPWP ${newNumber} sudah eksis!`,
+        icon: "warning"
+        });
+        return 0;
+    }
+    return 1;
+    }
+    
     function batal(){
         window.history.back();
     }
