@@ -47,7 +47,6 @@ async function updateFileOnGitHub() {
             const nama = document.getElementById("nama").value;
             const alamat = document.getElementById("alamat").value;
             if (!npwp.trim() || !nama.trim() || !alamat.trim()) {
-             //   alert("Masukkan teks sebelum mengirim!");
                 Swal.fire({
                 title: "Oh tidak!",
                 text: "Kolom data wajib diisi.",
@@ -55,7 +54,7 @@ async function updateFileOnGitHub() {
                 });
                 return;
             }
-            newText = nama;
+            newText = npwp+", "+nama+", "+alamat;
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
             try {
@@ -97,12 +96,14 @@ async function updateFileOnGitHub() {
                     throw new Error(`Gagal memperbarui file: ${updateResponse.statusText}`);
                 }
 
-           //     alert("Data berhasil disimpan!");
                 Swal.fire({
                 title: "Berhasil!",
                 text: "Data berhasil disimpan.",
                 icon: "success"
                 });
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
+                
        } catch (error) {
                 console.error("Error:", error);
                 alert("Terjadi kesalahan: " + error.message);
