@@ -7,7 +7,3 @@
 7777, JOKOWI, Solo
 8888, PRABOWO, Istana
 9999, SUKEDI, Pemalang
-1616, SURYANTO, Tegal
-1515, SUSILO, Tegal
-1717, SUPRATMAN, Jakarta 
-2415, DEWANDORO, Majalengka
