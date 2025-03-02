@@ -21,7 +21,7 @@ body, table, tr, th, td {
       </tr>
       <tr>
         <td>Nama</td><td>:</td>
-        <td><input type="text" id="nama"></td> <!-- maxlength="10"></td-->
+        <td><input type="text" id="nama" maxlength="10"></td>
       </tr>
       <tr>
         <td>Alamat</td><td>:</td>
@@ -54,7 +54,7 @@ async function updateFileOnGitHub() {
                 });
                 return;
             }
-            newText = npwp+", "+nama+", "+alamat;
+            newText = "\n"+npwp+", "+nama+", "+alamat;
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
             try {
