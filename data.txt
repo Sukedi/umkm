@@ -8,3 +8,4 @@
 8888, PRABOWO, Istana
 9999, SUKEDI, Pemalang
 1590, Gibran , Tn.abang
+1598, DEWANTARA , Tegal
