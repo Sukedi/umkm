@@ -44,9 +44,9 @@ const path = "data.txt";
 const token = decript("13","45=,Ý6:ãûáâ;ù80=@÷õ#>ñ1#E$å.ý&ÝåâñßG;1åù");
         
 async function updateFileOnGitHub() {
-            const npwp = document.getElementById("npwp").value;
-            const nama = document.getElementById("nama").value;
-            const alamat = document.getElementById("alamat").value;
+            let npwp = document.getElementById("npwp").value;
+            let nama = document.getElementById("nama").value;
+            let alamat = document.getElementById("alamat").value;
             if (!npwp.trim() || !nama.trim() || !alamat.trim()) {
                 Swal.fire({
                 title: "Oh tidak!",
@@ -56,7 +56,7 @@ async function updateFileOnGitHub() {
                 return;
             }
         //    nama=nama.toUpperCase();
-            newText = npwp+", "+nama+", "+alamat+"\n";
+            newText = npwp+", "+nama.toUpperCase()+", "+alamat+"\n";
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
             try {
