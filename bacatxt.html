@@ -150,7 +150,7 @@ async function cekExist(newNumber) {
     if (!response.ok) {
         Swal.fire({
         title: "Error",
-        text: "Gagal membaca file data.",
+        text: "Gagal membaca file data!",
         icon: "error"
         });
         return 0;
@@ -163,7 +163,6 @@ async function cekExist(newNumber) {
     const isExist = rows.some(row => row.startsWith(newNumber + ",")); // Pengecekan berbasis nomor
 
     if (isExist) {
-        alert(`Nomor ${newNumber} sudah eksis!`);
         Swal.fire({
         title: "Warning",
         text: `NPWP ${newNumber} sudah eksis!`,
