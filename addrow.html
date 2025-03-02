@@ -28,41 +28,33 @@ body, table, tr, th, td {
         <td><input type="text" id="alamat" maxlength="15"></td>
       </tr>
     </table>
-    <br><button onClick="updateFileOnGitHub()">Simpan</button>
+    <br><button onclick="updateFileOnGitHub()">Simpan</button>
     <br><hr>
     <p>Note:<br>Data baru yang anda simpan tidak langsung 
     update sebab <img src="gitlogo.jpg" 
     width="15"> <b>GitHub</b> akan melakukan 
     proses <b><i>autentikasi</i></b> 
     terlebih dulu sebelum data dipublish.</p>
-
+    
 <script>
 const owner = "Sukedi";
 const repo = "umkm";
 const path = "data.txt";
 const token = decript("13","45=,Ý6:ãûáâ;ù80=@÷õ#>ñ1#E$å.ý&ÝåâñßG;1åù");
-
-function simpan() {
-    const npwp = document.getElementById("npwp").value;
-    const nama = document.getElementById("nama").value;
-    const alamat = document.getElementById("alamat").value;
-    if (npwp=="" || nama=="" || alamat==""){
-        await problem();
-        return;
-    }
-//    addRow = npwp+", "+nama+", "+alamat;
-}
-        //await berhasil();
-        //await new Promise(resolve => setTimeout(resolve, 5000));
-        //window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
-
+        
 async function updateFileOnGitHub() {
-            const newText = document.getElementById("alamat").value + "\n";
-            if (!newText.trim()) {
-                alert("Masukkan teks sebelum mengirim!");
+            const npwp = document.getElementById("npwp").value;
+            const nama = document.getElementById("nama").value;
+            const alamat = document.getElementById("alamat").value;
+            if (!npwp.trim() || !nama.trim() || !alamat.trim()) {
+                Swal.fire({
+                title: "Oh tidak!",
+                text: "Kolom data wajib diisi.",
+                icon: "error"
+                });
                 return;
             }
-
+            newText = "\n"+npwp+", "+nama+", "+alamat;
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
             try {
@@ -104,16 +96,22 @@ async function updateFileOnGitHub() {
                     throw new Error(`Gagal memperbarui file: ${updateResponse.statusText}`);
                 }
 
-                alert("File berhasil diperbarui!");
-                document.getElementById("newTextInput").value = ""; // Kosongkan input setelah sukses
-            } catch (error) {
+                Swal.fire({
+                title: "Berhasil!",
+                text: "Data berhasil disimpan.",
+                icon: "success"
+                });
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
+                
+       } catch (error) {
                 console.error("Error:", error);
                 alert("Terjadi kesalahan: " + error.message);
             }
         }
-    
+
 function decript(num,txt) {
-    let nmx = String(num);
+            let nmx = String(num);
     while (nmx.length > 1) {
         let buf = 0;
         for (let i = 0; i < nmx.length; i++) {
@@ -138,25 +136,8 @@ function decript(num,txt) {
         buf += String.fromCharCode(x);
     }
     return buf;
-}
-    
-function berhasil(){
-Swal.fire({
-    title: "Berhasil!",
-    text: "Data berhasil disimpan.",
-    icon: "success"
-});
-}
-
-function problem(){
-Swal.fire({
-    title: "Oh tidak!",
-    text: "Kolom data wajib diisi.",
-    icon: "error"
-});
-}
-    
-</script>
-
+            }
+        
+    </script>
 </body>
 </html>
