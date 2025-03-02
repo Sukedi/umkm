@@ -17,7 +17,7 @@ body, table, tr, th, td {
     <table width="100%">
       <tr>
         <td>NPWP</td><td>:</td>
-        <td><input type="number" id="npwp"></td>
+        <td><input type="number" id="npwp" min="1111" max="9999"></td>
       </tr>
       <tr>
         <td>Nama</td><td>:</td>
@@ -29,6 +29,7 @@ body, table, tr, th, td {
       </tr>
     </table>
     <br><button onclick="updateFileOnGitHub()">Simpan</button>
+    &nbsp;&nbsp;&nbsp;<button onclick="batal()">Batal</button>
     <br><hr>
     <p>Note:<br>Data baru yang anda simpan tidak langsung 
     update sebab <img src="gitlogo.jpg" 
@@ -137,7 +138,10 @@ function decript(num,txt) {
     }
     return buf;
             }
-        
+
+    function batal(){
+        window.history.back();
+    }
     </script>
 </body>
 </html>
