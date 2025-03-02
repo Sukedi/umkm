@@ -2,13 +2,35 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tambah Baris ke GitHub</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Add NPWP</title>
+<style>
+body, table, tr, th, td {
+    font-family: arial;
+    font-size: 14px;
+}
+</style>
 </head>
 <body>
-    <input type="text" id="newTextInput" placeholder="Masukkan teks baru">
-    <button onclick="updateFileOnGitHub()">Tambah ke File</button>
-
+    
+    <h3>Tambahkan NPWP Baru</h3>
+    <table width="100%">
+      <tr>
+        <td>NPWP</td><td>:</td>
+        <td><input type="number" id="npwp"></td>
+      </tr>
+      <tr>
+        <td>Nama</td><td>:</td>
+        <td><input type="text" id="newTextInput"></td> // maxlength="10"></td>
+      </tr>
+      <tr>
+        <td>Alamat</td><td>:</td>
+        <td><input type="text" id="alamat" maxlength="15"></td>
+      </tr>
+    </table>
+    <button onclick="updateFileOnGitHub()">Simpan</button>
+    
 <script>
 const owner = "Sukedi";
 const repo = "umkm";
