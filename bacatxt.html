@@ -55,7 +55,8 @@ async function updateFileOnGitHub() {
                 });
                 return;
             }
-            if (cekExist(npwp)==0){
+            let terus = await cekExist(npwp);
+            if (terus==0){
                 return;
             }
             newText = npwp+", "+nama.toUpperCase()+", "+alamat+"\n";
@@ -109,7 +110,7 @@ async function updateFileOnGitHub() {
                 window.location.replace("https://sukedi.github.io/umkm/ceknpwp.html");
                 
        } catch (error) {
-                console.error("Error:", error);
+               // console.error("Error:", error);
                 alert("Terjadi kesalahan: " + error.message);
             }
         }
@@ -140,7 +141,7 @@ function decript(num,txt) {
         buf += String.fromCharCode(x);
     }
     return buf;
-            }
+}
 
 async function cekExist(newNumber) {
     const dataFile = "data.txt"; // Path ke file data.txt
