@@ -10,3 +10,4 @@
 1616, SURYANTO, Tegal
 1515, SUSILO, Tegal
 1717, SUPRATMAN, Jakarta 
+2415, DEWANDORO, Majalengka
