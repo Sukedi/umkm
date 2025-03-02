@@ -13,7 +13,6 @@ body, table, tr, th, td {
 </style>
 </head>
 <body>
-    
     <h3>Tambahkan NPWP Baru</h3>
     <table width="100%">
       <tr>
@@ -22,14 +21,20 @@ body, table, tr, th, td {
       </tr>
       <tr>
         <td>Nama</td><td>:</td>
-        <td><input type="text" id="newTextInput"></td> // maxlength="10"></td>
+        <td><input type="text" id="nama"></td> <!-- maxlength="10"></td-->
       </tr>
       <tr>
         <td>Alamat</td><td>:</td>
         <td><input type="text" id="alamat" maxlength="15"></td>
       </tr>
     </table>
-    <button onclick="updateFileOnGitHub()">Simpan</button>
+    <br><button onclick="updateFileOnGitHub()">Simpan</button>
+    <br><hr>
+    <p>Note:<br>Data baru yang anda simpan tidak langsung 
+    update sebab <img src="gitlogo.jpg" 
+    width="15"> <b>GitHub</b> akan melakukan 
+    proses <b><i>autentikasi</i></b> 
+    terlebih dulu sebelum data dipublish.</p>
     
 <script>
 const owner = "Sukedi";
@@ -38,12 +43,12 @@ const path = "data.txt";
 const token = decript("13","45=,Ý6:ãûáâ;ù80=@÷õ#>ñ1#E$å.ý&ÝåâñßG;1åù");
         
 async function updateFileOnGitHub() {
-            const newText = document.getElementById("newTextInput").value + "\n"; // Ambil teks dari input
-            if (!newText.trim()) {
+            const nama = document.getElementById("nama").value;
+            if (!nama.trim()) {
                 alert("Masukkan teks sebelum mengirim!");
                 return;
             }
-
+            newText = nama;
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
             try {
