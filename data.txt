@@ -8,3 +8,4 @@
 8888, PRABOWO, Istana
 9999, SUKEDI, Pemalang
 1616, SURYANTO, Tegal
+1515, SUSILO, Tegal
