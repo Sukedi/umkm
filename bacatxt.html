@@ -43,8 +43,10 @@ const path = "data.txt";
 const token = decript("13","45=,Ý6:ãûáâ;ù80=@÷õ#>ñ1#E$å.ý&ÝåâñßG;1åù");
         
 async function updateFileOnGitHub() {
+            const npwp = document.getElementById("npwp").value;
             const nama = document.getElementById("nama").value;
-            if (!nama.trim()) {
+            const alamat = document.getElementById("alamat").value;
+            if (!npwp.trim() || !nama.trim() || !alamat.trim()) {
                 alert("Masukkan teks sebelum mengirim!");
                 return;
             }
@@ -90,9 +92,8 @@ async function updateFileOnGitHub() {
                     throw new Error(`Gagal memperbarui file: ${updateResponse.statusText}`);
                 }
 
-                alert("File berhasil diperbarui!");
-                document.getElementById("newTextInput").value = ""; // Kosongkan input setelah sukses
-            } catch (error) {
+                alert("Data berhasil disimpan!");
+       } catch (error) {
                 console.error("Error:", error);
                 alert("Terjadi kesalahan: " + error.message);
             }
