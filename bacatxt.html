@@ -17,7 +17,7 @@ body, table, tr, th, td {
     <table width="100%">
       <tr>
         <td>NPWP</td><td>:</td>
-        <td><input type="number" id="npwp" style="width:auto; max-width:4ch;" autofocus></td>
+        <td><input type="number" id="npwp" autofocus></td>
       </tr>
       <tr>
         <td>Nama</td><td>:</td>
@@ -55,7 +55,8 @@ async function updateFileOnGitHub() {
                 });
                 return;
             }
-            newText = "\n"+npwp+", "+nama.toUpperCase()+", "+alamat;
+            nama=nama.toUpperCase();
+            newText = npwp+", "+nama+", "+alamat+"\n";
             const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
             try {
@@ -142,6 +143,13 @@ function decript(num,txt) {
     function batal(){
         window.history.back();
     }
+
+    document.getElementById("npwp").addEventListener("input", function () {
+    if (this.value.length > 4) {
+        this.value = this.value.slice(0, 4); // Langsung memotong lebih dari 4 digit
+    }
+});
+                    
     </script>
 </body>
 </html>
