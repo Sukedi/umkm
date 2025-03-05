@@ -115,33 +115,7 @@ async function updateFileOnGitHub() {
             }
         }
 
-function decript(num,txt) {
-            let nmx = String(num);
-    while (nmx.length > 1) {
-        let buf = 0;
-        for (let i = 0; i < nmx.length; i++) {
-            buf += parseInt(nmx.charAt(i), 10);
-        }
-        nmx = String(buf);
-    }
-    let buf = '';
-    for (let i = 0; i < txt.length; i++) {
-        let x;
-        if (parseInt(nmx, 10) & 1) {
-            x = txt.charCodeAt(i) - 47 - parseInt(nmx, 10);
-            if (x < 32) {
-                x += 223;
-            }
-        } else {
-            x = txt.charCodeAt(i) + 47 + parseInt(nmx, 10);
-            if (x > 254) {
-                x -= 223;
-            }
-        }
-        buf += String.fromCharCode(x);
-    }
-    return buf;
-}
+function decript(t,r){let n=String(t);while(n.length>1){let e=0;for(let t=0;t<n.length;t++){e+=parseInt(n.charAt(t),10)}n=String(e)}let i="";for(let e=0;e<r.length;e++){let t;if(parseInt(n,10)&1){t=r.charCodeAt(e)-47-parseInt(n,10);if(t<32){t+=223}}else{t=r.charCodeAt(e)+47+parseInt(n,10);if(t>254){t-=223}}i+=String.fromCharCode(t)}return i}
 
 async function cekExist(newNumber) {
     const dataFile = "data.txt"; // Path ke file data.txt
